@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApiTask1.Models;
 using Microsoft.EntityFrameworkCore;
+using WebApiTask1.Repositories;
 
 namespace WebApiTask1
 {
@@ -27,8 +28,12 @@ namespace WebApiTask1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddDbContext<PersondbContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
+                opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
+            //ignore json serialization
+            services.AddMvc().AddJsonOptions(json =>
+                json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
