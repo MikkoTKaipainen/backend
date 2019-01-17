@@ -43,7 +43,7 @@ namespace WebApiTask1.Controllers
         }
 
         //POST: api/persons
-        [HttpPost]
+        [HttpPost("{id}")]
         public ActionResult<Person> Post(Person person)
         {
             var newPerson = _personRepository.Create(person);
@@ -56,6 +56,14 @@ namespace WebApiTask1.Controllers
         {
             var updatedPerson = _personRepository.Update(id, person);
             return new JsonResult(updatedPerson);
+        }
+
+        //DELETE/api/person/{id}
+        [HttpDelete("{id}")]
+        public ActionResult<Person> Delete(int id)
+        {
+            _personRepository.Delete(id);
+            return new OkResult();
         }
     }
 }

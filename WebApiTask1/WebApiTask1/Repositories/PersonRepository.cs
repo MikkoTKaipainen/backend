@@ -9,23 +9,26 @@ namespace WebApiTask1.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly PersondbContext context;
+        private readonly PersondbContext _context;
 
-        public PersonRepository(PersondbContext context)
+        public PersonRepository(PersondbContext _context)
         {
-            this.context = context;
+            this._context = _context;
         }
 
         public Person Create(Person person)
         {
-            context.Add(person);
-            context.SaveChanges();
+            _context.Add(person);
+            _context.SaveChanges();
             return person;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deletedPerson = Read(id);
+            _context.Person.Remove(deletedPerson);
+            _context.SaveChanges();
+            return;
         }
 
         //Select * from person
@@ -34,13 +37,13 @@ namespace WebApiTask1.Repositories
             //return context.Person
             //  .Include(p => p.Phone)
             //  .FirstOrDefault(p => p.Id == id);
-            return context.Person.FromSql("Select * From Person").ToList();
+            return _context.Person.FromSql("Select * From Person").ToList();
         }
 
         //Select * from person where ID = id
         public Person Read(int id)
         {
-            return context.Person
+            return _context.Person
                 .Include(p=>p.Phone)
                 .FirstOrDefault(p => p.Id == id);
         }
@@ -52,8 +55,8 @@ namespace WebApiTask1.Repositories
                 throw new Exception("Person not found");
             else
             {
-                context.Update(person);
-                context.SaveChanges();
+                _context.Update(person);
+                _context.SaveChanges();
             }
             return person;
         }
