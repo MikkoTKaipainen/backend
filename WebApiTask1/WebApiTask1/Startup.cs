@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using WebApiTask1.Models;
 using Microsoft.EntityFrameworkCore;
 using WebApiTask1.Repositories;
+using WebApiTask1.Services;
 
 namespace WebApiTask1
 {
@@ -29,6 +30,7 @@ namespace WebApiTask1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPersonService, PersonService>();
             services.AddDbContext<PersondbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
             //ignore json serialization

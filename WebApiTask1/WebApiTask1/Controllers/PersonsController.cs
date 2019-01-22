@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApiTask1.Models;
 using WebApiTask1.Repositories;
+using WebApiTask1.Services;
 
 namespace WebApiTask1.Controllers
 {
@@ -14,9 +15,11 @@ namespace WebApiTask1.Controllers
     public class PersonsController : ControllerBase
     {
         private readonly IPersonRepository _personRepository;
+        private readonly IPersonService _personService;
 
-        public PersonsController(IPersonRepository personRepository)
+        public PersonsController(IPersonRepository personRepository, IPersonService personService)
         {
+            _personService = personService;
             _personRepository = personRepository;
         }
 
@@ -30,7 +33,7 @@ namespace WebApiTask1.Controllers
             //    new Person("Roope Setä", 60)
             //};
 
-            var persons = _personRepository.Read();
+            var persons = _personService.Read();
             return new JsonResult(persons);
         }
 
