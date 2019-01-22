@@ -31,8 +31,12 @@ namespace WebApiTask1
         {
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonService, PersonService>();
+
             services.AddDbContext<PersondbContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext")));
+            { 
+                opt.UseSqlServer(Configuration.GetConnectionString("LocalPersonDbContext"));
+            }
+            );
             //ignore json serialization
             services.AddMvc().AddJsonOptions(json =>
                 json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

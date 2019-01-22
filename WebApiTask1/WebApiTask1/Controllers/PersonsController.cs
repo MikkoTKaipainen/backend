@@ -41,7 +41,7 @@ namespace WebApiTask1.Controllers
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id)
         {
-            var persons = _personRepository.Read(id);
+            var persons = _personService.Read(id);
             return new JsonResult(persons);
         }
 
@@ -49,7 +49,7 @@ namespace WebApiTask1.Controllers
         [HttpPost("{id}")]
         public ActionResult<Person> Post(Person person)
         {
-            var newPerson = _personRepository.Create(person);
+            var newPerson = _personService.Create(person);
             return new JsonResult(newPerson);
         }
 
@@ -57,8 +57,8 @@ namespace WebApiTask1.Controllers
         [HttpPut("{Id}")]
         public ActionResult<Person> Put(int id, Person person)
         {
-            var updatedPerson = _personRepository.Update(id, person);
-            return new JsonResult(updatedPerson);
+            var updatedPerson = _personService.Update(id, person);
+            return updatedPerson;
         }
 
         //DELETE/api/person/{id}
@@ -66,7 +66,7 @@ namespace WebApiTask1.Controllers
         public ActionResult<Person> Delete(int id)
         {
             _personRepository.Delete(id);
-            return new OkResult();
+            return new NoContentResult();
         }
     }
 }
