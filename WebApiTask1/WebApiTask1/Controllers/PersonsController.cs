@@ -46,7 +46,7 @@ namespace WebApiTask1.Controllers
         }
 
         //POST: api/persons
-        [HttpPost("{id}")]
+        [HttpPost]
         public ActionResult<Person> Post(Person person)
         {
             var newPerson = _personService.Create(person);

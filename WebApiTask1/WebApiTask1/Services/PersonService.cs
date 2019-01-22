@@ -18,7 +18,7 @@ namespace WebApiTask1.Services
 
         public Person Create(Person person)
         {
-            throw new NotImplementedException();
+            return _personRepository.Create(person);
         }
 
         public void Delete(int id)
@@ -33,12 +33,17 @@ namespace WebApiTask1.Services
 
         public Person Read(int id)
         {
-            throw new NotImplementedException();
+            return _personRepository.Read(id);
         }
 
         public Person Update(int id, Person person)
         {
-            throw new NotImplementedException();
-        }
+            var updatedPerson = _personRepository.Read(id);
+            if (updatedPerson == null)
+                throw new Exception("Person not found");
+
+            return _personRepository.Update(person);
+        } 
     }
 }
+

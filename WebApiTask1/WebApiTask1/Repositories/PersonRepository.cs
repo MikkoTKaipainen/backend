@@ -44,20 +44,16 @@ namespace WebApiTask1.Repositories
         public Person Read(int id)
         {
             return _context.Person
-                .Include(p=>p.Phone)
+                .AsNoTracking()
+                .Include(p => p.Phone)
                 .FirstOrDefault(p => p.Id == id);
         }
 
-        public Person Update(int id, Person person)
+        public Person Update(Person person)
         {
-            var updatedPerson = Read(id);
-            if (updatedPerson == null)
-                throw new Exception("Person not found");
-            else
-            {
-                _context.Update(person);
-                _context.SaveChanges();
-            }
+            _context.Update(person);
+            _context.SaveChanges();
+
             return person;
         }
     }
