@@ -14,6 +14,7 @@ namespace WebApiTask1.Repositories
         public PersonRepository(PersondbContext _context)
         {
             this._context = _context;
+            return null;
         }
 
         public Person Create(Person person)
