@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApiTask1.Models;
 using WebApiTask1.Repositories;
+using WebApiTask1.Utilities;
 
 namespace WebApiTask1.Services
 {
@@ -18,6 +19,7 @@ namespace WebApiTask1.Services
 
         public Person Create(Person person)
         {
+            person.Psw = PasswordHash.HashPassword(person.Psw, "QWERTY");
             return _personRepository.Create(person);
         }
 
@@ -42,6 +44,7 @@ namespace WebApiTask1.Services
             if (updatedPerson == null)
                 throw new Exception("Person not found");
 
+            person.Psw = PasswordHash.HashPassword(person.Psw, "QWERTY");
             return _personRepository.Update(person);
         } 
     }

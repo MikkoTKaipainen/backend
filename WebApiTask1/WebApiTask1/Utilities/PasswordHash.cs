@@ -23,5 +23,4 @@ namespace WebApiTask1.Utilities
             return hashed;
         }
     }
-    }
 }
