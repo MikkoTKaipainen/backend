@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebApiBank.Repositories;
+using WebApiBank.Services;
+using Microsoft.EntityFrameworkCore;
+using WebApiBank.Models;
 
 namespace WebApiBank
 {
@@ -25,6 +29,27 @@ namespace WebApiBank
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ITransactionService, TransactionService>();
+
+            //repositories
+            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+
+            services.AddDbContext<BankdbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("LocalBankdbContext"));
+            }
+            );
+            //ignore json serialization
+            services.AddMvc().AddJsonOptions(json =>
+                json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

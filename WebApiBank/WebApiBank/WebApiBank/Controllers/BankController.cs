@@ -11,7 +11,7 @@ namespace WebApiBank.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BankController
+    public class BankController : ControllerBase
     {
         private readonly IBankRepository _bankRepository;
         private readonly IBankService _bankService;
