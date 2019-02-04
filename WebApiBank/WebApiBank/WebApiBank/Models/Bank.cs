@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace WebApiBank.Models
 {
@@ -21,6 +22,7 @@ namespace WebApiBank.Models
         [StringLength(10)]
         public string BIC { get; set; }
 
+        [IgnoreDataMember]
         [InverseProperty("Bank")]
         public virtual ICollection<Account> Account { get; set; }
         [InverseProperty("Bank")]

@@ -11,7 +11,7 @@ namespace WebApiBank.Services
         Bank Create(Bank bank);
         List<Bank> Read();
         Bank Read(int id);
-        Bank Update(int id, Bank name);
-        void delete(int id);
+        Bank Update(int id, Bank bank);
+        void Delete(int id);
     }
 }

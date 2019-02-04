@@ -3,34 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiBank.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApiBank.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
+        private readonly BankdbContext _context;
+
+        public AccountRepository(BankdbContext _context)
+        {
+            this._context = _context;
+        }
+
         public Account Create(Account account)
         {
-            throw new NotImplementedException();
+            _context.Add(account);
+            _context.SaveChanges();
+            return account;
         }
 
         public void Delete(string IBAN)
         {
-            throw new NotImplementedException();
+            var deletedAccount = Read(IBAN);
+            _context.Account.Remove(deletedAccount);
+            _context.SaveChanges();
+            return;
         }
 
         public List<Account> Read()
         {
-            throw new NotImplementedException();
+            return _context.Account.FromSql("Select * From Account").ToList();
         }
 
         public Account Read(string IBAN)
         {
-            throw new NotImplementedException();
+            return _context.Account
+                .AsNoTracking()
+                .FirstOrDefault(p => p.IBAN == IBAN);
         }
 
-        public Account Update(string IBAN, Account account)
+        public Account Update(Account account)
         {
-            throw new NotImplementedException();
+            _context.Update(account);
+            _context.SaveChanges();
+            return account;
         }
     }
 }

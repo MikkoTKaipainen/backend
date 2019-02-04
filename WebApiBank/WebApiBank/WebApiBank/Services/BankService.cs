@@ -21,7 +21,7 @@ namespace WebApiBank.Services
             throw new NotImplementedException();
         }
 
-        public void delete(int id)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -36,9 +36,12 @@ namespace WebApiBank.Services
             return _bankRepository.Read(id);
         }
 
-        public Bank Update(int id, Bank name)
+        public Bank Update(int id, Bank bank)
         {
-            throw new NotImplementedException();
+            var updatedBank = _bankRepository.Read(id);
+            if (updatedBank == null)
+                throw new Exception("Bank not found");
+            return _bankRepository.Update(bank);
         }
     }
 }
