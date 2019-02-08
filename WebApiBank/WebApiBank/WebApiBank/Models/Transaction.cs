@@ -18,7 +18,7 @@ namespace WebApiBank.Models
         public DateTime TimeStamp { get; set; }
 
         [IgnoreDataMember]
-        [ForeignKey("IBAN")]
+        [ForeignKey("AccountId")]
         [InverseProperty("Transaction")]
         public virtual Account IBANNavigation { get; set; }
     }

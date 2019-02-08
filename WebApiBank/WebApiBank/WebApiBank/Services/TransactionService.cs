@@ -11,6 +11,11 @@ namespace WebApiBank.Services
     {
         private readonly ITransactionRepository _transactionRepository;
 
+        public TransactionService(ITransactionRepository transactionRepository)
+        {
+            _transactionRepository = transactionRepository;
+        }
+
         public Transaction Create(Transaction transaction)
         {
             return _transactionRepository.Create(transaction);
@@ -30,8 +35,8 @@ namespace WebApiBank.Services
         {
             var updatedTransaction = _transactionRepository.Read(id);
             if (updatedTransaction == null)
-                throw new Exception("Transaction not found")
-            return updatedTransaction.Update(transaction);
+                throw new Exception("Transaction not found");
+            return _transactionRepository.Update(transaction);
 
         }
     }

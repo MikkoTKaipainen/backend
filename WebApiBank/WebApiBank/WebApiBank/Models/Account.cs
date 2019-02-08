@@ -13,10 +13,10 @@ namespace WebApiBank.Models
             Transaction = new HashSet<Transaction>();
         }
 
-        [Key]
+        public long Id { get; set; }
+        [Required]
         [StringLength(20)]
         public string IBAN { get; set; }
-        [Required]
         [StringLength(50)]
         public string Name { get; set; }
         public long BankId { get; set; }

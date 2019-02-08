@@ -37,9 +37,9 @@ namespace WebApiBank.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Account> Post(int id)
+        public ActionResult<Account> Post(Account account)
         {
-            var newAccount = _accountService.Create(id);
+            var newAccount = _accountService.Create(account);
             return new JsonResult(newAccount);
         }
 

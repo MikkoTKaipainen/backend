@@ -35,7 +35,7 @@ namespace WebApiBank.Repositories
                 .FirstOrDefault(p => p.Id == id);
         }
 
-        public Transaction Update(int id, Transaction transaction)
+        public Transaction Update(Transaction transaction)
         {
             _context.Update(transaction);
             _context.SaveChanges();
