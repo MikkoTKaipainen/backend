@@ -10,8 +10,8 @@ namespace WebApiBank.Repositories
     {
         Account Create(Account account);
         List<Account> Read();
-        Account Read(string IBAN);
+        Account Read(int id);
         Account Update(Account account);
-        void Delete(string IBAN);
+        void Delete(int id);
     }
 }

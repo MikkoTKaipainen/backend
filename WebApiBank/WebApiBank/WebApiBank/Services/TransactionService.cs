@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiBank.Models;
+using WebApiBank.Repositories;
 
 namespace WebApiBank.Services
 {
     public class TransactionService : ITransactionService
     {
+        private readonly ITransactionRepository _transactionRepository;
+
         public Transaction Create(Transaction transaction)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
+            return _transactionRepository.Create(transaction);
         }
 
         public List<Transaction> Read()
         {
-            throw new NotImplementedException();
+            return _transactionRepository.Read();
         }
 
         public Transaction Read(int id)
         {
-            throw new NotImplementedException();
+            return _transactionRepository.Read(id);
         }
 
         public Transaction Update(int id, Transaction transaction)
         {
-            throw new NotImplementedException();
+            var updatedTransaction = _transactionRepository.Read(id);
+            if (updatedTransaction == null)
+                throw new Exception("Transaction not found")
+            return updatedTransaction.Update(transaction);
+
         }
     }
 }

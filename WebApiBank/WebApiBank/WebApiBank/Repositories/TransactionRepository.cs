@@ -3,34 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiBank.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApiBank.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
-        public Transaction Create(Transaction transaction)
+        private readonly BankdbContext _context;
+
+        public TransactionRepository(BankdbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public void Delete(int id)
+        public Transaction Create(Transaction transaction)
         {
-            throw new NotImplementedException();
+            _context.Add(transaction);
+            _context.SaveChanges();
+            return transaction;
         }
 
         public List<Transaction> Read()
         {
-            throw new NotImplementedException();
+            return _context.Transaction.FromSql("Select * From Transaction").ToList();
         }
 
         public Transaction Read(int id)
         {
-            throw new NotImplementedException();
+            return _context.Transaction
+                .AsNoTracking()
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public Transaction Update(int id, Transaction transaction)
         {
-            throw new NotImplementedException();
+            _context.Update(transaction);
+            _context.SaveChanges();
+            return transaction;
         }
     }
 }

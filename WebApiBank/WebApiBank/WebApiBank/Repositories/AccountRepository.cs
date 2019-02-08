@@ -23,9 +23,9 @@ namespace WebApiBank.Repositories
             return account;
         }
 
-        public void Delete(string IBAN)
+        public void Delete(int id)
         {
-            var deletedAccount = Read(IBAN);
+            var deletedAccount = Read(id);
             _context.Account.Remove(deletedAccount);
             _context.SaveChanges();
             return;
@@ -36,11 +36,12 @@ namespace WebApiBank.Repositories
             return _context.Account.FromSql("Select * From Account").ToList();
         }
 
-        public Account Read(string IBAN)
+        public Account Read(int id)
         {
             return _context.Account
                 .AsNoTracking()
-                .FirstOrDefault(p => p.IBAN == IBAN);
+                .Include(p => p.Transaction)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public Account Update(Account account)

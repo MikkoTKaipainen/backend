@@ -18,7 +18,7 @@ namespace WebApiBank.Services
 
         public Bank Create(Bank bank)
         {
-            throw new NotImplementedException();
+            return _bankRepository.Create(bank);
         }
 
         public void Delete(int id)

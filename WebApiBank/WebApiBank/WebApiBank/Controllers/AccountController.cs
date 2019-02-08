@@ -30,23 +30,23 @@ namespace WebApiBank.Controllers
         }
 
         [HttpGet("{IBAN}")]
-        public ActionResult<Account> Get(string IBAN)
+        public ActionResult<Account> Get(int id)
         {
-            var accounts = _accountService.Read(IBAN);
+            var accounts = _accountService.Read(id);
             return new JsonResult(accounts);
         }
 
         [HttpPost]
-        public ActionResult<Account> Post(Account IBAN)
+        public ActionResult<Account> Post(int id)
         {
-            var newAccount = _accountService.Create(IBAN);
+            var newAccount = _accountService.Create(id);
             return new JsonResult(newAccount);
         }
 
         [HttpPut("{IBAN}")]
-        public ActionResult<Account> Put(string IBAN, Account account)
+        public ActionResult<Account> Put(int id, Account account)
         {
-            var updatedAccount = _accountService.Update(IBAN, account);
+            var updatedAccount = _accountService.Update(id, account);
             return updatedAccount;
         }
     }

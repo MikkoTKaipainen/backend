@@ -21,7 +21,7 @@ namespace WebApiBank.Services
             return _accountRepository.Create(account);
         }
 
-        public void Delete(string IBAN)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -31,14 +31,14 @@ namespace WebApiBank.Services
             return _accountRepository.Read();
         }
 
-        public Account Read(string IBAN)
+        public Account Read(int id)
         {
-            return _accountRepository.Read(IBAN);
+            return _accountRepository.Read(id);
         }
 
-        public Account Update(string IBAN, Account account)
+        public Account Update(int id, Account account)
         {
-            var updatedAccount = _accountRepository.Read(IBAN);
+            var updatedAccount = _accountRepository.Read(id);
             if (updatedAccount == null)
                 throw new Exception("Account not found");
             return _accountRepository.Update(account);

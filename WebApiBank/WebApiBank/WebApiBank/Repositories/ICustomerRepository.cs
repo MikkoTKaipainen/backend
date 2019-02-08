@@ -11,7 +11,7 @@ namespace WebApiBank.Repositories
         Customer Create(Customer customer);
         List<Customer> Read();
         Customer Read(int id);
-        Customer Update(int id, Customer customer);
+        Customer Update(Customer customer);
         void Delete(int id);
     }
 }

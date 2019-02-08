@@ -12,6 +12,5 @@ namespace WebApiBank.Repositories
         List<Transaction> Read();
         Transaction Read(int id);
         Transaction Update(int id, Transaction transaction);
-        void Delete(int id);
     }
 }
