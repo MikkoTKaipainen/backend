@@ -20,14 +20,14 @@ namespace WebApiBank.Models
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-OUF1ASIN\\SQLEXPRESS;Initial Catalog=bankdb;Integrated Security=True");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Data Source=LAPTOP-OUF1ASIN\\SQLEXPRESS;Initial Catalog=banktaskdb;Integrated Security=True");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace WebApiBank.Models
 
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.IBAN).ValueGeneratedNever();
+                entity.Property(e => e.IBAN).IsUnicode(false);
 
                 entity.Property(e => e.Name).IsUnicode(false);
 
@@ -51,31 +51,27 @@ namespace WebApiBank.Models
                     .HasConstraintName("FK_Account_Customer");
             });
 
-            modelBuilder.Entity<Bank>(entity =>
-            {
-                entity.Property(e => e.Name).IsUnicode(false);
-            });
-
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.FirstName).IsUnicode(false);
 
                 entity.Property(e => e.LastName).IsUnicode(false);
 
-                entity.Property(e => e.Psw).IsUnicode(false);
-
                 entity.HasOne(d => d.Bank)
                     .WithMany(p => p.Customer)
                     .HasForeignKey(d => d.BankId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Customer_Bank");
             });
 
             modelBuilder.Entity<Transaction>(entity =>
             {
-                entity.HasOne(d => d.IBANNavigation)
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.IBAN).IsUnicode(false);
+
+                entity.HasOne(d => d.Account)
                     .WithMany(p => p.Transaction)
-                    .HasForeignKey(d => d.IBAN)
+                    .HasForeignKey(d => d.AccountId)
                     .HasConstraintName("FK_Transaction_Account");
             });
 
