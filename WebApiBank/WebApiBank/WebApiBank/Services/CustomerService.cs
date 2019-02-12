@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApiBank.Models;
 using WebApiBank.Repositories;
+using WebApiBank.Utilities;
 
 namespace WebApiBank.Services
 {
@@ -18,6 +19,7 @@ namespace WebApiBank.Services
 
         public Customer Create(Customer customer)
         {
+            customer.Psw = PasswordHash.HashPassword(customer.Psw, "QWERTY");
             return _customerRepository.Create(customer);
         }
 
@@ -41,6 +43,8 @@ namespace WebApiBank.Services
             var updatedCustomer = _customerRepository.Read(id);
             if (updatedCustomer == null)
                 throw new Exception("Customer not found");
+
+            customer.Psw = PasswordHash.HashPassword(customer.Psw, "QWERTY");
             return _customerRepository.Update(customer);
         }
     }

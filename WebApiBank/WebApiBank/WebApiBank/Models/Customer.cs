@@ -20,6 +20,7 @@ namespace WebApiBank.Models
         [StringLength(50)]
         public string LastName { get; set; }
         public long BankId { get; set; }
+        public string Psw { get; set; }
 
         [ForeignKey("BankId")]
         [InverseProperty("Customer")]

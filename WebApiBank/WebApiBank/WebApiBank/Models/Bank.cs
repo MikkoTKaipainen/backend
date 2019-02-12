@@ -15,9 +15,10 @@ namespace WebApiBank.Models
 
         public long Id { get; set; }
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string Name { get; set; }
-        public long BIC { get; set; }
+        [StringLength(50)]
+        public string BIC { get; set; }
 
         [InverseProperty("Bank")]
         public virtual ICollection<Account> Account { get; set; }
