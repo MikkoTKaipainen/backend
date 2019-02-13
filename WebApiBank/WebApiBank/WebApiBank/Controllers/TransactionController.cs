@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApiBank.Repositories;
 using WebApiBank.Services;
+using WebApiBank.Models;
 
 namespace WebApiBank.Controllers
 {
@@ -19,6 +20,27 @@ namespace WebApiBank.Controllers
         {
             _transactionRepository = transactionRepository;
             _transactionService = transactionService;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Transaction>> ListAllTransactions()
+        {
+            var transactions = _transactionService.Read();
+            return new JsonResult(transactions);
+        }
+
+        [HttpGet("{Id}")]
+        public ActionResult<Account> Get(int id)
+        {
+            var transactions = _transactionService.Read(id);
+            return new JsonResult(transactions);
+        }
+
+        [HttpPost]
+        public ActionResult<Account> Post(Transaction transaction)
+        {
+            var newTransaction = _transactionService.Create(transaction);
+            return new JsonResult(newTransaction);
         }
     }
 }
